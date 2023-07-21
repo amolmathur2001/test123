@@ -1,6 +1,6 @@
 const express = require("express");
 const connectDB = require("./Db");
-
+require("dotenv").config();
 const cors = require("cors");
 const app = express();
 
@@ -15,13 +15,11 @@ app.use("/api", require("./Routes/CreateUser"));
 app.use("/api", require("./Routes/ShowData"));
 app.use("/api", require("./Routes/OrderData"));
 app.use("/api", require("./Routes/MyOrderData"));
-app.use("/api",require("./Routes/SendSMS"));
+app.use("/api", require("./Routes/SendSMS"));
 
 //Payment
 // This is your test secret API key.
-const stripe = require("stripe")(
-  "sk_test_51NUqQfSGGqzCBSaVTSwEsnVlTVS2C1vjugSdFhU9niWr9lKTYpRqg6htZrvumnCWGenMooJunDZePsgh73sBBpNx00RXfacIuF"
-);
+const stripe = require("stripe")(process.env.STRIP_KEY);
 
 app.use(express.static("public"));
 app.use(express.json());
@@ -45,8 +43,6 @@ app.post("/create-payment-intent", async (req, res) => {
 
 //sending messages
 
-
-app.listen(9000, () => {
+app.listen(process.env.PORT, () => {
   console.log("app is listening...");
 });
-

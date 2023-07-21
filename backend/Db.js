@@ -1,9 +1,9 @@
 const mongoose = require('mongoose');
-const url = "mongodb+srv://amolmathur2001:xJX6M2NoGswbD5TE@cluster0.c8hby4o.mongodb.net/BarbequeCity?retryWrites=true&w=majority";
+
 
 const connectDB = async() =>{
     try{
-        const conn = await mongoose.connect(url,{
+        const conn = await mongoose.connect(process.env.MONGO_URI,{
             useUnifiedTopology: true,
             useNewUrlParser: true,
         });
